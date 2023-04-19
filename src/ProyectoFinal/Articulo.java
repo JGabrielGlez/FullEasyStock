@@ -1,7 +1,7 @@
 package ProyectoFinal;
 //actualiazación de la clase numero 1 
 import static javax.swing.JOptionPane.*;
-
+//prueba
 public  class Articulo {
 
     private int cant;
