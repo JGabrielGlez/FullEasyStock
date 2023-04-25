@@ -17,15 +17,7 @@ public class frmMenu extends javax.swing.JFrame {
         
     
     
-public class Main {
-    public static void main(String[] args) {
-        ArrayList<controladorPanel> listaPaneles = new ArrayList<>();
-        controladorPanel articulo = new pnlArticulo();
-        controladorPanel venta = new pnlVenta();
-        listaPaneles.add(articulo);
-        listaPaneles.add(venta);
-    }
-}
+
 
         
     /**
@@ -280,8 +272,8 @@ public class Main {
         
     
         //zona de inicialiación de clases 
-       // pnlArticulo articulo=new pnlArticulo();
-        //pnlVenta venta=new pnlVenta();  
+        controladorPanel articulo=new pnlArticulo();
+        controladorPanel venta=new pnlVenta();  
        
 
         
