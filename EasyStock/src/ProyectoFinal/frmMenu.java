@@ -273,7 +273,11 @@ public class frmMenu extends javax.swing.JFrame {
         btnInventario.setEnabled(true);
         btnPedidos.setEnabled(true);
     }
-     
+    
+    
+    public controladorPanel getArticulo() {
+        return articulo;
+    }
      
     
         

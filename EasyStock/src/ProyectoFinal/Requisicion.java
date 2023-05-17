@@ -29,9 +29,6 @@ public class Requisicion {
         return d +"/" + m +"/" + a;
     }
 
-    public static void main(String asd[]){
-        Articulo c = new Articulo();
-        c.leer(); c.mostrar();
-    }
+   
 }
 

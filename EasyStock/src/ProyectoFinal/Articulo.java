@@ -1,36 +1,56 @@
 package ProyectoFinal;
 //actualiazación de la clase numero 1 
-import static javax.swing.JOptionPane.*;
+
 //prueba
 public  class Articulo {
 
     private int cant;
     private String name="";
-    private int id=0, costo=0;
-    //la primera posición sería el stock, de ahi lo que se vende, y la tercera lo que se requiere
+    private int id=0; double costo=0;
 
     Articulo(){}
-    Articulo(String name, int id, int cant, int costo){this.name=name; this.id=id; this.cant=cant;
-    this.costo=costo;}
-
-    public String toString(){
-        return "Nombre del producto: " + name +"\nId: " + id + "\nCantidad: " + cant +
-                "\nCosto unitario: " + costo;
-    }
-    public void leer(){
-        name=showInputDialog("Ingresar el nombre del producto: ");
-        id=Integer.parseInt(showInputDialog("Ingresar el ID del producto: "));
-        cant=Integer.parseInt(showInputDialog("Ingresar la cantidad del producto: "));
-        costo=Integer.parseInt(showInputDialog("Ingresar el costo del producto: "));
+    Articulo(String name, int id, int cant, double costo){this.name=name; this.id=id; this.cant=cant;
+    this.costo=costo;
     }
 
-    public void mostrar(){
-        showMessageDialog(null, toString());
+    public int getCant() {
+        return cant;
     }
 
-
-    public static void main(String as[]){
-        Articulo c=new Articulo(); c.leer();c.mostrar();
+    public void setCant(int cant) {
+        this.cant = cant;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public double getCosto() {
+        return costo;
+    }
+
+    public void setCosto(int costo) {
+        this.costo = costo;
+    }
+    
+     
+    
+    
+
+    
+    
+
 
 }

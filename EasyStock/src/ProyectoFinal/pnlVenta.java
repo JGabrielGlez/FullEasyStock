@@ -1,10 +1,15 @@
 
 package ProyectoFinal;
 
+import javax.swing.table.DefaultTableModel;
+
+
 public class pnlVenta extends controladorPanel {
 
     public pnlVenta() {
         initComponents();
+        m=(DefaultTableModel)tblVenta.getModel();
+        
     }
    
     @SuppressWarnings("unchecked")
@@ -138,8 +143,13 @@ public class pnlVenta extends controladorPanel {
 
         add(pnlFormulario, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
-
-
+    public void llenarTabla(){
+    
+    
+    }
+    private DefaultTableModel m;
+    controladorPanel tabla=new pnlArticulo();
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnAgregar;

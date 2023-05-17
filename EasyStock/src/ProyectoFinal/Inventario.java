@@ -17,8 +17,5 @@ public class Inventario {
         return "Nombre del artículo: " + nombreArticulo + "\nCantidad del artículo: " + cantidad;
     }
 
-    public static void main(String asdf[]){
-        Articulo c=new Articulo();
-        c.leer(); c.mostrar();
-    }
+    
 }
