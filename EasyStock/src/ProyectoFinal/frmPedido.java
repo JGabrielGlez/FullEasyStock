@@ -38,7 +38,7 @@ public class frmPedido extends javax.swing.JFrame {
 
         pnlContenedor.setLayout(new java.awt.BorderLayout());
 
-        pnlTitulo.setBackground(new java.awt.Color(153, 255, 153));
+        pnlTitulo.setBackground(new java.awt.Color(204, 0, 204));
 
         lblPedido.setFont(new java.awt.Font("Times", 0, 36)); // NOI18N
         lblPedido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -49,10 +49,12 @@ public class frmPedido extends javax.swing.JFrame {
 
         pnlFormulario.setLayout(new java.awt.BorderLayout());
 
-        pnlBotones.setBackground(new java.awt.Color(255, 255, 51));
+        pnlBotones.setBackground(new java.awt.Color(204, 0, 204));
 
+        btnAgregar.setBackground(new java.awt.Color(102, 102, 255));
         btnAgregar.setText("Agregar");
 
+        btnHecho.setBackground(new java.awt.Color(102, 102, 255));
         btnHecho.setText("Hecho");
         btnHecho.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -60,8 +62,10 @@ public class frmPedido extends javax.swing.JFrame {
             }
         });
 
+        btnEliminar.setBackground(new java.awt.Color(102, 102, 255));
         btnEliminar.setText("Eliminar");
 
+        btnSalir.setBackground(new java.awt.Color(102, 102, 255));
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,6 +73,7 @@ public class frmPedido extends javax.swing.JFrame {
             }
         });
 
+        btnEditar.setBackground(new java.awt.Color(102, 102, 255));
         btnEditar.setText("Editar");
 
         javax.swing.GroupLayout pnlBotonesLayout = new javax.swing.GroupLayout(pnlBotones);
@@ -76,29 +81,31 @@ public class frmPedido extends javax.swing.JFrame {
         pnlBotonesLayout.setHorizontalGroup(
             pnlBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBotonesLayout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(btnEliminar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 281, Short.MAX_VALUE)
                 .addComponent(btnAgregar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnEliminar)
-                .addGap(18, 18, 18)
                 .addComponent(btnEditar)
-                .addGap(208, 208, 208)
-                .addComponent(btnHecho)
-                .addGap(51, 51, 51)
-                .addComponent(btnSalir)
-                .addGap(62, 62, 62))
+                .addGap(18, 18, 18)
+                .addComponent(btnHecho, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
         );
         pnlBotonesLayout.setVerticalGroup(
             pnlBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBotonesLayout.createSequentialGroup()
-                .addContainerGap(32, Short.MAX_VALUE)
-                .addGroup(pnlBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAgregar)
-                    .addComponent(btnEliminar)
-                    .addComponent(btnSalir)
-                    .addComponent(btnHecho)
-                    .addComponent(btnEditar))
-                .addGap(25, 25, 25))
+                .addContainerGap()
+                .addGroup(pnlBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnHecho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBotonesLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         pnlFormulario.add(pnlBotones, java.awt.BorderLayout.PAGE_END);
@@ -121,7 +128,7 @@ public class frmPedido extends javax.swing.JFrame {
         );
         pnlTablaLayout.setVerticalGroup(
             pnlTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
         );
 
         pnlFormulario.add(pnlTabla, java.awt.BorderLayout.CENTER);

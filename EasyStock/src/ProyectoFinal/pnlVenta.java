@@ -1,7 +1,8 @@
 
 package ProyectoFinal;
 
-
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -11,25 +12,18 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class pnlVenta extends controladorPanel implements Observador{
-    
-        
 
     
      @Override
     public void actualizar() {
         llenarTabla();
-        vaciarTablaVenta();
     }
-
     
     public pnlVenta() {
-
         initComponents();
         m=(DefaultTableModel)tblVenta.getModel();
         modelVenta=(DefaultTableModel) tblTotal.getModel();
         leerArticulos();
-        
-        
     }
    //Es buena idea poner un botón de actualizar que se traiga la tabla tal cuál está en el panel de artículos
     @SuppressWarnings("unchecked")
@@ -53,39 +47,38 @@ public class pnlVenta extends controladorPanel implements Observador{
         txtTotal = new javax.swing.JTextField();
         btnAgregar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
+        lblDescripcion = new javax.swing.JLabel();
+        txtDescripcion = new javax.swing.JTextField();
         btnGetTotal = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 102));
         setLayout(new java.awt.BorderLayout());
 
-        pnlNombre.setBackground(new java.awt.Color(102, 255, 204));
+        pnlNombre.setBackground(new java.awt.Color(102, 102, 255));
         pnlNombre.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 pnlNombreMouseClicked(evt);
             }
         });
 
-        lblVenta.setFont(new java.awt.Font("Times", 0, 36)); // NOI18N
+        lblVenta.setFont(new java.awt.Font("Book Antiqua", 1, 36)); // NOI18N
         lblVenta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblVenta.setText("Venta");
         pnlNombre.add(lblVenta);
 
         add(pnlNombre, java.awt.BorderLayout.PAGE_START);
 
-        pnlBotones.setBackground(new java.awt.Color(204, 204, 255));
+        pnlBotones.setBackground(new java.awt.Color(51, 102, 255));
         pnlBotones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 pnlBotonesMouseClicked(evt);
             }
         });
 
+        btnAceptar.setBackground(new java.awt.Color(153, 153, 255));
         btnAceptar.setText("Aceptar");
-        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAceptarActionPerformed(evt);
-            }
-        });
 
+        btnCancelar.setBackground(new java.awt.Color(153, 153, 255));
         btnCancelar.setText("Cancelar");
 
         javax.swing.GroupLayout pnlBotonesLayout = new javax.swing.GroupLayout(pnlBotones);
@@ -93,27 +86,29 @@ public class pnlVenta extends controladorPanel implements Observador{
         pnlBotonesLayout.setHorizontalGroup(
             pnlBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBotonesLayout.createSequentialGroup()
-                .addGap(189, 189, 189)
-                .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
-                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(851, Short.MAX_VALUE)
+                .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         pnlBotonesLayout.setVerticalGroup(
             pnlBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBotonesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 6, Short.MAX_VALUE))
+            .addGroup(pnlBotonesLayout.createSequentialGroup()
+                .addGap(7, 7, 7)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         add(pnlBotones, java.awt.BorderLayout.PAGE_END);
 
         pnlFormulario.setLayout(new java.awt.BorderLayout());
 
-        pnlTabla.setBackground(new java.awt.Color(51, 255, 51));
+        pnlTabla.setBackground(new java.awt.Color(153, 153, 255));
 
         tblVenta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -144,7 +139,7 @@ public class pnlVenta extends controladorPanel implements Observador{
 
             },
             new String [] {
-                "Artículo", "ID", "Cantidad"
+                "Nombre", "ID", "Cantidad"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -169,7 +164,7 @@ public class pnlVenta extends controladorPanel implements Observador{
             .addGroup(pnlTablaLayout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE))
         );
         pnlTablaLayout.setVerticalGroup(
             pnlTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,46 +181,101 @@ public class pnlVenta extends controladorPanel implements Observador{
         pnlBotonesTabla.setLayout(new java.awt.BorderLayout());
         pnlFormulario.add(pnlBotonesTabla, java.awt.BorderLayout.SOUTH);
 
-        pnlTotal.setBackground(new java.awt.Color(204, 102, 0));
+        pnlTotal.setBackground(new java.awt.Color(102, 102, 255));
         pnlTotal.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 pnlTotalMouseClicked(evt);
             }
         });
-        pnlTotal.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtMonto.setEditable(false);
+        txtMonto.setBackground(new java.awt.Color(102, 102, 255));
         txtMonto.setColumns(2);
         txtMonto.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtMonto.setText("Monto total:");
-        pnlTotal.add(txtMonto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 528, -1));
+        txtMonto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMontoActionPerformed(evt);
+            }
+        });
 
         txtTotal.setEditable(false);
-        pnlTotal.add(txtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(528, 0, 180, -1));
 
+        btnAgregar.setBackground(new java.awt.Color(153, 153, 255));
         btnAgregar.setText("Agregar artículo");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarActionPerformed(evt);
             }
         });
-        pnlTotal.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 30, -1, -1));
 
+        btnEliminar.setBackground(new java.awt.Color(153, 153, 255));
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
             }
         });
-        pnlTotal.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 30, -1, -1));
 
+        lblDescripcion.setText("Descripción:");
+
+        btnGetTotal.setBackground(new java.awt.Color(153, 153, 255));
         btnGetTotal.setText("Obtener total");
         btnGetTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGetTotalActionPerformed(evt);
             }
         });
-        pnlTotal.add(btnGetTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 0, 120, -1));
+
+        javax.swing.GroupLayout pnlTotalLayout = new javax.swing.GroupLayout(pnlTotal);
+        pnlTotal.setLayout(pnlTotalLayout);
+        pnlTotalLayout.setHorizontalGroup(
+            pnlTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTotalLayout.createSequentialGroup()
+                .addGroup(pnlTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTotalLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlTotalLayout.createSequentialGroup()
+                        .addGroup(pnlTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlTotalLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(lblDescripcion))
+                            .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlTotalLayout.createSequentialGroup()
+                                .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 429, Short.MAX_VALUE)
+                                .addGroup(pnlTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(btnGetTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(pnlTotalLayout.createSequentialGroup()
+                                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
+        );
+        pnlTotalLayout.setVerticalGroup(
+            pnlTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTotalLayout.createSequentialGroup()
+                .addGroup(pnlTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGetTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addGroup(pnlTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlTotalLayout.createSequentialGroup()
+                        .addGroup(pnlTotalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlTotalLayout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addComponent(lblDescripcion))
+                            .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         pnlFormulario.add(pnlTotal, java.awt.BorderLayout.CENTER);
 
@@ -238,11 +288,10 @@ public class pnlVenta extends controladorPanel implements Observador{
     }
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         //tengo que obtener la posición de la tabla para sacar del arreglo dicho artículo y poner solo el nombre y por default agregar 1 en cantidad
-        
         String nom; double costo; int id;
         int pos=getSelectedRow(tblVenta);
-        quitarSeleccion();
-
+        
+        
         
         if(pos!=-1){
             nom=articulos[pos].getName();
@@ -255,7 +304,7 @@ public class pnlVenta extends controladorPanel implements Observador{
             o[1]=id;
             o[2]=1;
             modelVenta.addRow(o);
-            
+            numArt++;
                 }else{msg("Este artículo ya está agregado");}
         }
         
@@ -277,14 +326,13 @@ public void quitarSeleccion(){
     tblVenta.transferFocus();
 }
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        
-        int pos=getSelectedRow(tblTotal);
-
+       int pos=getSelectedRow(tblTotal);
+       
        if(pos!=-1){
        
            modelVenta.removeRow(pos);
            quitarSeleccion();
-           
+           numArt--;
        }else{msg("No hay fila seleccionada");}
         
         
@@ -308,67 +356,23 @@ public void quitarSeleccion(){
     //multiplciar su costo por la cantidad, verificando a su vez que no exceda la disponibilidad
     //también validad que sea algún número negativo o una letra
     public void sumaTotal(){
-        if(m.getRowCount()!=-1){
-        txtTotal.setText("");
-        int  excedentes=0, a=comunicador.getA();
-        double suma=0;
-        String cad="| ", idErrorCad="| ", numNeg="| ";
         
-        int disponible=0, cantidadVendida=0;
-      
-      for(int i=0; i<modelVenta.getRowCount();i++){//este es el contador para saber qué tantos id hay que encontrar
-          
-          int id = Integer.parseInt(modelVenta.getValueAt(i, 1).toString()); //esto me da el id del articulo a vender
-          
-          for(int b=0; b<a+1; b++){ //este es el contador para encontrar la posición del articulo con su id, a+1 es la cantidad de articulos en el arreglo 
-
-
-              try{
-                  
-                  cantidadVendida=Integer.parseInt(modelVenta.getValueAt(i, 2).toString());
-                  if(cantidadVendida<=0){
-                      //numNeg+=(modelVenta.getValueAt(b, 1).toString())+"| ";
-                      msg("Número inválido;"); excedentes++;}
-              }catch(NumberFormatException e){
-                  
-                 idErrorCad+=articulos[b].getId()+" | ";
-                  msg("Solo números son permitidos, error con los artículos con ID: "+idErrorCad);
-                  excedentes++;
-              }catch(Exception e){}
-              
-              if(articulos[b].getId()==id){//este me posiciona en el articulo a vender dentro del propio arreglo
-                  disponible=articulos[b].getCant();
-                  
-                  if(existencia(disponible, cantidadVendida)==true){
-                  suma+=cantidadVendida*articulos[b].getCosto();
-                  b=a+2;
-                  }else{
-                    cad += articulos[b].getId()+ " | ";
-                    
-                     excedentes++; //concateno y cuento la cantidad de articulos que exceden el inventario
-                     
-          }
-                  //esto para que salga del bucle cuando encuentre un valor que coincida
-              }
-              
-          }//cierre del bucle for con b como contador, en este punto ya tengo la posición del articulo a vender
-          
-          
+        int disponible, cantidadVendida;
         
-      }//cierre del primer bucle for
-      
-      if(excedentes>0){
-          msg("La cantidad de los siguientes artículos con ID "+cad+"exceden las existencias");
-          txtTotal.setText("");
-      }else{
-          txtTotal.setText(suma+"");
+      for(int i=0; i<numArt;i++){
+          
+          if(existencia==true){
+        
+            for(int i=0; i<numArt; i++){
+                
+            }
+            
+        }else{msg("No hay stock suficiente para el artículo "+id);}
+        
       }
-      
-     
-      
-    }else{msg("No hay artículos agregados");return;}
-    
     }
+    
+    
     public boolean existencia(int disponible, int cantidadVenta){
        
         if(cantidadVenta>disponible){
@@ -379,20 +383,12 @@ public void quitarSeleccion(){
     
     
     private void btnGetTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetTotalActionPerformed
-        if(modelVenta.getRowCount()>-1) {sumaTotal();} else {msg("No hay artículos seleccionados para vender");txtTotal.setText("");}
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnGetTotalActionPerformed
 
-    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-if(m.getRowCount()!=-1){
-    sumaTotal();
-    recibo reciboForm = new recibo();
-    reciboForm.setTabla(tblTotal);
-    reciboForm.setVisible(true);
-    reciboForm.setMonto(txtTotal.getText());
-}
-       
-
-    }//GEN-LAST:event_btnAceptarActionPerformed
+    private void txtMontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMontoActionPerformed
    
         public void llenarTabla() {
         m.setRowCount(0);
@@ -442,20 +438,10 @@ if(m.getRowCount()!=-1){
         }
         
             comunicador.setArticulo(articulos,a);
-            
+        
         }catch(Exception e){}
         
     }
-    
-    public void vaciarTablaVenta(){
-        modelVenta.setRowCount(0);
-    }
-
-    public JTable getTblTotal() {
-        return tblTotal;
-    }
-    
-    
     
     //variables de los archivos
     private FileWriter fcs;//flujo de escritura
@@ -464,10 +450,7 @@ if(m.getRowCount()!=-1){
     private DefaultTableModel m,modelVenta;
     private Articulo[] articulos=new Articulo[5];
     private Articulo[] venta=new Articulo[5];
-    private int a = -1;
-    
-    recibo recibo;
-   
+    private int a = -1, numArt=0;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnAgregar;
@@ -476,6 +459,7 @@ if(m.getRowCount()!=-1){
     private javax.swing.JButton btnGetTotal;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblDescripcion;
     private javax.swing.JLabel lblVenta;
     private javax.swing.JPanel pnlBotones;
     private javax.swing.JPanel pnlBotonesTabla;
@@ -485,6 +469,7 @@ if(m.getRowCount()!=-1){
     private javax.swing.JPanel pnlTotal;
     private javax.swing.JTable tblTotal;
     private javax.swing.JTable tblVenta;
+    private javax.swing.JTextField txtDescripcion;
     private javax.swing.JFormattedTextField txtMonto;
     private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables

@@ -3,6 +3,9 @@ package ProyectoFinal;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JButton;
 import static javax.swing.JOptionPane.*;
 
@@ -17,6 +20,7 @@ public class frmMenu extends javax.swing.JFrame{
     
     public frmMenu() {//este es el constructor del menu
         initComponents();
+        MostrarHyF();
         articulo.enlazarObservador(venta);
 
         this.setExtendedState(this.MAXIMIZED_BOTH);//da el tamaño máximo según el tamaño de ventana. 
@@ -39,75 +43,62 @@ public class frmMenu extends javax.swing.JFrame{
         lblDireccion = new javax.swing.JLabel();
         lblTelefono = new javax.swing.JLabel();
         pnlDatos = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        btnSalirSistema = new javax.swing.JButton();
         pnlBotones = new javax.swing.JPanel();
         btnArticulos = new javax.swing.JButton();
         btnInventario = new javax.swing.JButton();
         btnPedidos = new javax.swing.JButton();
         btnDistribuidor = new javax.swing.JButton();
+        btnSalirSistema = new javax.swing.JButton();
+        jTextField2 = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        lblFechayHora = new javax.swing.JLabel();
         pnlContenedor = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
 
-        pnlDatosTienda.setBackground(new java.awt.Color(102, 255, 102));
-        pnlDatosTienda.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlDatosTienda.setBackground(new java.awt.Color(153, 153, 255));
 
-        lnlNombreTienda.setFont(new java.awt.Font("Malayalam MN", 0, 36)); // NOI18N
-        lnlNombreTienda.setText("Tienda de Software EasyStock");
-        pnlDatosTienda.add(lnlNombreTienda, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 546, 88));
+        lnlNombreTienda.setFont(new java.awt.Font("Bookman Old Style", 1, 60)); // NOI18N
+        lnlNombreTienda.setText("EasyStock");
 
+        lblDireccion.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         lblDireccion.setText("Ubicada Allende #239, col. Centro  ");
-        pnlDatosTienda.add(lblDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 18, -1, -1));
 
+        lblTelefono.setFont(new java.awt.Font("Segoe UI Historic", 1, 18)); // NOI18N
         lblTelefono.setText("Teléfono: 311 234 3434");
-        pnlDatosTienda.add(lblTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 60, -1, -1));
+
+        javax.swing.GroupLayout pnlDatosTiendaLayout = new javax.swing.GroupLayout(pnlDatosTienda);
+        pnlDatosTienda.setLayout(pnlDatosTiendaLayout);
+        pnlDatosTiendaLayout.setHorizontalGroup(
+            pnlDatosTiendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDatosTiendaLayout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(lnlNombreTienda, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(578, 578, 578)
+                .addGroup(pnlDatosTiendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblTelefono)
+                    .addComponent(lblDireccion)))
+        );
+        pnlDatosTiendaLayout.setVerticalGroup(
+            pnlDatosTiendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lnlNombreTienda, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(pnlDatosTiendaLayout.createSequentialGroup()
+                .addComponent(lblDireccion)
+                .addGap(18, 18, 18)
+                .addComponent(lblTelefono))
+        );
 
         getContentPane().add(pnlDatosTienda, java.awt.BorderLayout.NORTH);
 
-        pnlDatos.setBackground(new java.awt.Color(102, 255, 204));
-
-        jTextField1.setText("Hora y fecha actual:");
-
-        jTextField2.setText("Datos del usuario");
-
-        btnSalirSistema.setText("Salir del sistema");
-        btnSalirSistema.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirSistemaActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnlDatosLayout = new javax.swing.GroupLayout(pnlDatos);
-        pnlDatos.setLayout(pnlDatosLayout);
-        pnlDatosLayout.setHorizontalGroup(
-            pnlDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlDatosLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
-                    .addComponent(btnSalirSistema, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        pnlDatosLayout.setVerticalGroup(
-            pnlDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlDatosLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 323, Short.MAX_VALUE)
-                .addComponent(btnSalirSistema, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
+        pnlDatos.setBackground(new java.awt.Color(153, 153, 255));
+        pnlDatos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(pnlDatos, java.awt.BorderLayout.LINE_END);
 
-        pnlBotones.setBackground(new java.awt.Color(0, 255, 204));
+        pnlBotones.setBackground(new java.awt.Color(153, 153, 255));
 
+        btnArticulos.setBackground(new java.awt.Color(102, 102, 255));
+        btnArticulos.setFont(new java.awt.Font("Segoe UI Emoji", 2, 18)); // NOI18N
         btnArticulos.setText("Artículos");
         btnArticulos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,6 +106,8 @@ public class frmMenu extends javax.swing.JFrame{
             }
         });
 
+        btnInventario.setBackground(new java.awt.Color(102, 102, 255));
+        btnInventario.setFont(new java.awt.Font("Segoe UI Emoji", 2, 18)); // NOI18N
         btnInventario.setText("Inventario");
         btnInventario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,6 +115,8 @@ public class frmMenu extends javax.swing.JFrame{
             }
         });
 
+        btnPedidos.setBackground(new java.awt.Color(102, 102, 255));
+        btnPedidos.setFont(new java.awt.Font("Segoe UI Emoji", 2, 18)); // NOI18N
         btnPedidos.setText("Pedidos");
         btnPedidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,6 +124,8 @@ public class frmMenu extends javax.swing.JFrame{
             }
         });
 
+        btnDistribuidor.setBackground(new java.awt.Color(102, 102, 255));
+        btnDistribuidor.setFont(new java.awt.Font("Segoe UI Emoji", 2, 18)); // NOI18N
         btnDistribuidor.setText("Distribuidor");
         btnDistribuidor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,36 +133,83 @@ public class frmMenu extends javax.swing.JFrame{
             }
         });
 
+        btnSalirSistema.setBackground(new java.awt.Color(204, 0, 255));
+        btnSalirSistema.setText("Salir del sistema");
+        btnSalirSistema.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirSistemaActionPerformed(evt);
+            }
+        });
+
+        jTextField2.setBackground(new java.awt.Color(204, 204, 255));
+        jTextField2.setText("Datos del usuario");
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
+
+        lblFechayHora.setText("Fecha:");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(lblFechayHora, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(21, Short.MAX_VALUE)
+                .addComponent(lblFechayHora)
+                .addGap(18, 18, 18))
+        );
+
         javax.swing.GroupLayout pnlBotonesLayout = new javax.swing.GroupLayout(pnlBotones);
         pnlBotones.setLayout(pnlBotonesLayout);
         pnlBotonesLayout.setHorizontalGroup(
             pnlBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBotonesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnArticulos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(17, 17, 17)
+                .addGroup(pnlBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnDistribuidor, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
                     .addComponent(btnInventario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnArticulos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnPedidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDistribuidor, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(jTextField2)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSalirSistema, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         pnlBotonesLayout.setVerticalGroup(
             pnlBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBotonesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnDistribuidor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(180, Short.MAX_VALUE))
+                .addComponent(btnDistribuidor, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnSalirSistema, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         getContentPane().add(pnlBotones, java.awt.BorderLayout.LINE_START);
 
-        pnlContenedor.setPreferredSize(new java.awt.Dimension(560, 640));
+        pnlContenedor.setBackground(new java.awt.Color(102, 102, 255));
+        pnlContenedor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        pnlContenedor.setPreferredSize(new java.awt.Dimension(560, 645));
         pnlContenedor.setLayout(new java.awt.BorderLayout());
         getContentPane().add(pnlContenedor, java.awt.BorderLayout.CENTER);
 
@@ -195,6 +239,11 @@ public class frmMenu extends javax.swing.JFrame{
         showMessageDialog(this,"Disponible en la aplicación PREMIUM");
     }//GEN-LAST:event_btnDistribuidorActionPerformed
 
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
+    
     /**
      * @param args the command line arguments
      */
@@ -251,7 +300,6 @@ public class frmMenu extends javax.swing.JFrame{
         pnlContenedor.remove(panelActual());
         pnlContenedor.add(articulo);
         actualizarPanel();
-        //venta.vaciarTablaVenta();
         
 
     }
@@ -288,6 +336,10 @@ public class frmMenu extends javax.swing.JFrame{
     }
      
     
+    private void MostrarHyF(){
+        String timestamp = ZonedDateTime.now(ZoneId.of("Mexico/BajaNorte")).format(DateTimeFormatter.ofPattern("dd.MM.yyy, hh:mm a"));
+        lblFechayHora.setText(String.valueOf(timestamp));
+    }
         
     
         
@@ -299,9 +351,10 @@ public class frmMenu extends javax.swing.JFrame{
     private javax.swing.JButton btnInventario;
     private javax.swing.JButton btnPedidos;
     private javax.swing.JButton btnSalirSistema;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel lblDireccion;
+    private javax.swing.JLabel lblFechayHora;
     private javax.swing.JLabel lblTelefono;
     private javax.swing.JLabel lnlNombreTienda;
     private javax.swing.JPanel pnlBotones;
