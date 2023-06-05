@@ -4,7 +4,7 @@ package ProyectoFinal;
 import java.io.FileWriter;
 import java.io.IOException;
 
-
+//prueba
 //prueba
 public  class Articulo {
 
