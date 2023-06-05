@@ -2,7 +2,13 @@
 package ProyectoFinal;
 
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import static javax.swing.JOptionPane.*;
 import javax.swing.JTable;
@@ -10,13 +16,26 @@ import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class pnlArticulo extends controladorPanel {
+public class pnlArticulo extends controladorPanel implements SujetoObservable {
+    
+    @Override
+    public void notificar() {
+        for(Observador o:observadores){o.actualizar();
+        
+        }}
+    
+    private ArrayList<Observador> observadores;
+    
+    public void enlazarObservador(Observador o){observadores.add(o);}
 
     public pnlArticulo(frmMenu menu) {
         super(menu);
         initComponents();
         m=(DefaultTableModel) tblArticulos.getModel();
        
+        //En lugar de llamar a cada rato el setArreglo de la clase comunicador, mejor que se llame cuando 
+        //algún dato en la tabla ha sido modificado, se han agregado/eliminado filas, etc. 
+        
         //Este método detecta si hay una fila seleccionada para hacer ciertos procedimientos.
         tblArticulos.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -32,8 +51,12 @@ public class pnlArticulo extends controladorPanel {
         }
        
         ); 
+        
+        leerArticulos();
+        observadores=new ArrayList<Observador>();
      
     }
+    
     public pnlArticulo() {initComponents();
     }
 
@@ -321,9 +344,16 @@ public class pnlArticulo extends controladorPanel {
             msg("Ingrese un nombre válido");
             return;
         }
+        
         try{
         if((id=tryInt(txtId))<=0){
             throw new numException("Ingrese un ID válido");
+        }
+        
+        if(a>-1){
+            if(articuloValido(id,a)==false){
+                msg("Este artículo ya existe"); return;
+            }
         }
         
         if((costo=tryDouble(txtCosto))<=0){
@@ -340,28 +370,53 @@ public class pnlArticulo extends controladorPanel {
         //mando mensaje al usuario de que ya se agregó y borro todos los datos , en caso de llegar al máximo 
         //de articulos (10), mandar mensaje de que compre la opción premium para agregar ciera cantidad más
         
-            if (a < limiteArticulos) {
-                articulo[a++] = new Articulo(nom, id, cantidad, costo);
+        if (a < limiteArticulos-1 ) {
+               
+                
+                articulo[++a] = new Articulo(nom, id, cantidad, costo);
+               comunicador.setArticulo(articulo,a);
+               // msg(""+a);
+
                 Object[] datos = new Object[4];
                 datos[0] = nom;
                 datos[1] = id;
                 datos[2] = costo;
                 datos[3] = cantidad;
-
+                /*try{
+                    fcs=new FileWriter("TablaDeArticulos.NoBorrar", true);
+                    articulo[a-1].guardar(fcs);
+                }catch(IOException e){msg("Error "+e.getMessage());return;}*/
                 m.addRow(datos);
-                //borrarDatos();
+                borrarDatos();
                 msg("Artículo agregado");
+                notificar();
 
-            }else if(a==limiteArticulos){msg("Ha alcanzado el máximo de artículos para esta aplicación demo...");}
+                //mandar arreglo a la clase comunciadora
 
-            
+            }
         
-
+            else if(a<limiteArticulos){
+                msg("Ha alcanzado el máximo de artículos para esta aplicación demo...");
+                borrarDatos();
+            }
+        
         //Al momento de editar un artículo para agregarle más elementos, sería bueno desactivar los 
         //campos de texto para solo agregar la cantidad de articulo que llegaron
         //o hacerlo desde otro boton para solo agregar los articulos
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    public boolean articuloValido(int id, int a){
+        boolean valido=true;
+        for(int i=0; i<a+1; i++){
+            if(articulo[i].getId()==id){
+                valido = false;
+            }
+        }
+        return valido;
+    }
+    
+    
+    
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         //este será mejor para la opción de editar
         btnAgregar.setEnabled(true);
@@ -382,7 +437,7 @@ public class pnlArticulo extends controladorPanel {
             if (boton == 0) {
                 //se elimina la fila solo de la tabla
                 int pos = tblArticulos.getSelectedRow();
-                if(pos==0 || pos==limiteArticulos-1){
+                if(/*pos==0 ||*/ pos==limiteArticulos-1){
                     a--;
                 }else{
                 for(int i=pos; i<limiteArticulos-1; i++){
@@ -391,6 +446,11 @@ public class pnlArticulo extends controladorPanel {
                 a--;        
                 }
                 m.removeRow(pos);
+                comunicador.setArticulo(articulo, a);
+                notificar();
+
+                //elimino el arreglo en la clase comunicadora.
+
                 //a es el contador de objetos dentro del arreglo, después de crear el primer ibjeto, a = 1
                 //si posición es antes del ultimo, se recorren desde la posición un espacio antes, para eliminar el último espacio.
 
@@ -400,6 +460,8 @@ public class pnlArticulo extends controladorPanel {
             msg(e.getMessage());
             return;
         }
+        
+
 //habilitar y deshabilitar ciertos botones para qquitar el problema de agregar un elemento de más  a la tabla. 
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -418,6 +480,10 @@ public class pnlArticulo extends controladorPanel {
                 txtId.setText(actual[1].toString());
                 txtCosto.setText(actual[2].toString());
                 txtCantidad.setText(actual[3].toString());
+                
+                //actualizo el arreglo en la clase comunicadora
+               
+
             }
             btnActualizar.setEnabled(true);
             btnAgregar.setEnabled(false);
@@ -453,15 +519,28 @@ public class pnlArticulo extends controladorPanel {
             throw new numException("Ingrese una cantidad de artículos válida");
         }
         }catch (numException e ){msg(e.getMessage()); return;}
-                
+                //no estoy actualizando el arreglo interno
                 actual[0] = nom;
                 actual[1] = id;
                 actual[2] = costo;
                 actual[3] = cantidad;
+                
+                articulo[posActual].setName(nom);
+                articulo[posActual].setId(id);
+                articulo[posActual].setCosto(costo);
+                articulo[posActual].setCant(cantidad);
+                comunicador.setArticulo(articulo,a);
+                notificar();
+
+
+                
                     
                 llenarTabla(actual, posActual);
                 borrarDatos();
                 msg("Artículo actualizado");
+                
+                //actualizo el arreglo en la clase comunicadora. 
+
 
             
        btnActualizar.setEnabled(false);
@@ -554,6 +633,22 @@ public boolean validarLetras(String nom) {
         return ret;
     }
     
+     private void guardarArray(){
+        
+        try{//limpia el archivo
+        fcs=new FileWriter("DatosArticulos.NoBorrar");
+        fcs.write(""); fcs.flush();
+        }catch(IOException e){msg(e.getMessage());}
+        
+        try{
+            fcs=new FileWriter("DatosArticulos.NoBorrar",true);
+            
+            for(int i = 0; i<a;i++){
+            articulo[i].guardar(fcs);
+            }
+        }catch(IOException e){msg(e.getMessage());}
+    }
+    
     
      public int GetCantParam(Constructor<?> constructor){
         return constructor.getParameterCount();
@@ -595,16 +690,40 @@ public boolean validarLetras(String nom) {
         return valido;
     }
     
-    public Articulo[] getArreglo(){
-        return articulo;
+    private void leerArticulos(){
+        String nom; int id, cantidad; double costo;
+        //new Articulo(nom, id, cantidad, costo);
+        try{
+        fce=new FileReader("DatosArticulos.NoBorrar");
+        bce=new BufferedReader(fce);
+        String linea="";
+        
+        while((linea=bce.readLine())!=null){//esto es para crear el arreglo
+            String R[]=linea.split("\\|"); m.addRow(R);
+           // msg(""+R[0]+R[1]+R[2]+R[3]);
+            nom=R[0]; id=Integer.parseInt(R[1]); costo=Double.parseDouble(R[2]); cantidad=Integer.parseInt(R[3]);
+            articulo[++a]=new Articulo(nom, id, cantidad, costo);
+        }
+        
+            comunicador.setArticulo(articulo,a);
+        
+        }catch(Exception e){msg("Creando nuevos datos..."+e.getMessage());}
+        
     }
     
+    
+    public static int l;
     private DefaultTableModel m;
     private boolean rowSelected;
     //Esto determinar el limite de los articulos que se pueden agregar
     private Object[] actual;
-    private int posActual,a=0,limiteArticulos=5;
+    private int posActual,a=-1,limiteArticulos=5;
     public Articulo[] articulo=new Articulo[limiteArticulos];
+    
+    //variables de los archivos
+    private FileWriter fcs;//flujo de escritura
+    private FileReader fce;//flujo de lectura
+    private BufferedReader bce;//
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
@@ -631,4 +750,7 @@ public boolean validarLetras(String nom) {
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNom;
     // End of variables declaration//GEN-END:variables
+
+    
+    
 }

@@ -1,6 +1,10 @@
 package ProyectoFinal;
 //actualiazación de la clase numero 1 
 
+import java.io.FileWriter;
+import java.io.IOException;
+
+
 //prueba
 public  class Articulo {
 
@@ -41,10 +45,17 @@ public  class Articulo {
         return costo;
     }
 
-    public void setCosto(int costo) {
+    public void setCosto(double costo) {
         this.costo = costo;
     }
     
+    public void guardar(FileWriter fcs){
+        String cad=name + "|" + id + "|" + costo + "|" + cant + "\n";
+        try{
+            fcs.write(cad);
+            fcs.flush();
+        }catch(IOException e){}
+    }
      
     
     

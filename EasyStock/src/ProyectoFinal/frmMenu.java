@@ -7,12 +7,18 @@ import javax.swing.JButton;
 import static javax.swing.JOptionPane.*;
 
 
-public class frmMenu extends javax.swing.JFrame {
+public class frmMenu extends javax.swing.JFrame{
         
-    
+    //zona de inicialiación de clases 
+        pnlVenta venta=new pnlVenta(); 
+        pnlArticulo articulo=new pnlArticulo(this);
+        pnlInventario inventario=new pnlInventario(this);
+        
     
     public frmMenu() {//este es el constructor del menu
         initComponents();
+        articulo.enlazarObservador(venta);
+
         this.setExtendedState(this.MAXIMIZED_BOTH);//da el tamaño máximo según el tamaño de ventana. 
         this.setResizable(false);
         this.setLocationRelativeTo(null);//con esto aparecerá centrado.
@@ -193,6 +199,7 @@ public class frmMenu extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -244,6 +251,7 @@ public class frmMenu extends javax.swing.JFrame {
         pnlContenedor.remove(panelActual());
         pnlContenedor.add(articulo);
         actualizarPanel();
+        //venta.vaciarTablaVenta();
         
 
     }
@@ -282,10 +290,8 @@ public class frmMenu extends javax.swing.JFrame {
     
         
     
-        //zona de inicialiación de clases 
-        controladorPanel venta=new pnlVenta(); 
-        controladorPanel articulo=new pnlArticulo(this);
-        controladorPanel inventario=new pnlInventario(this);
+        
+        
         
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnArticulos;
@@ -304,5 +310,6 @@ public class frmMenu extends javax.swing.JFrame {
     private javax.swing.JPanel pnlDatosTienda;
     // End of variables declaration//GEN-END:variables
 
+    
     
 }
